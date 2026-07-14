@@ -1,0 +1,13 @@
+If you are seeing this, this LUMA robot has had its boot.py and LUMA.py patched!
+The modified BOOT.py and LUMA.py were created by michael carlson, Pf-A
+https://pf-a.github.io/l/
+repository at https://github.com/Pf-A/luma-patched-bootcode
+
+
+
+
+
+
+
+This program has had 3 confirmed kills.
+#PATCHTHEMALL

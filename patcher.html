@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMA Bootcode Patcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px auto;
+            max-width: 500px;
+            padding: 20px;
+            background-color: #f4f4f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 { color: #333; border-bottom: 2px solid #ddd; padding-bottom: 10px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover { background-color: #0056b3; }
+        .instructions { font-size: 13px; color: #666; margin-bottom: 20px; line-height: 1.4; }
+    </style>
+</head>
+<body>
+
+    <h2>LUMA Bootcode Patcher (v1.0.0L)</h2>
+    <p class="instructions">
+        Select your template boot file, fill in the fields, and click patch. 
+        Your browser will generate the updated file to save directly back to your LUMA drive.
+    </p>
+
+    <!-- 1. Select the file to modify -->
+    <div class="form-group">
+        <label for="fileInput">Choose your boot file:</label>
+        <input type="file" id="fileInput">
+    </div>
+
+    <!-- 2. Inputs for the placeholder text -->
+    <div class="form-group">
+        <label for="patchName">Your Name:</label>
+        <input type="text" id="patchName" placeholder="Enter your name">
+    </div>
+
+    <div class="form-group">
+        <label for="patchDate">Today's Date:</label>
+        <input type="text" id="patchDate" placeholder="YYYY-MM-DD">
+    </div>
+
+    <!-- 3. Button to trigger processing -->
+    <button onclick="patchFile()">Patch & Save File</button>
+
+    <script>
+        function patchFile() {
+            const fileInput = document.getElementById('fileInput');
+            const patchName = document.getElementById('patchName').value;
+            const patchDate = document.getElementById('patchDate').value;
+
+            // Ensure a file was selected
+            if (fileInput.files.length === 0) {
+                alert('Please select a file first.');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            // Read and process file text
+            reader.onload = function(e) {
+                let content = e.target.result;
+
+                // Perform the string replacements
+                content = content.replace(/{YOURNAME}/g, patchName);
+                content = content.replace(/{TODAYSDATE}/g, patchDate);
+
+                // Create a download link for the browser to export the file
+                const blob = new Blob([content], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = file.name; // Preserves original name (e.g., boot.py)
+                
+                // Trigger download
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+
+            reader.readAsText(file);
+        }
+    </script>
+</body>
+</html>

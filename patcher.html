@@ -42,11 +42,12 @@
 
     <h2>LUMA Bootcode Patcher (v1.0.0L)</h2>
     <p class="instructions">
+        Turn on your LUMA holding the Black button down, until you see a drive called LUMA.
         Select your template boot file, fill in the fields, and click patch. 
         Your browser will generate the updated file to save directly back to your LUMA drive.
     </p>
 
-    <!-- 1. Select the file to modify -->
+    <!-- 1. Select the file to modify --><!--
     <div class="form-group">
         <label for="fileInput">Choose your boot file:</label>
         <input type="file" id="fileInput">
@@ -68,7 +69,7 @@
 
     <script>
         function patchFile() {
-            const fileInput = document.getElementById('fileInput');
+            const fileInput = "https://Pf-A.github.io/Luma-Bootcode-Patcher/boot.py" //document.getElementById('fileInput');
             const patchName = document.getElementById('patchName').value;
             const patchDate = document.getElementById('patchDate').value;
 
